@@ -2,8 +2,8 @@
 title: "AQM Week 08 -- Ordered Choice Models"
 author: 
   - Domantas Undzėnas
-  - Muhammad Muhammad
-date: "April 3 | 4, 2025"
+  - Lisa-Marie Müller
+date: "April 16 | 17, 2025"
 output:
   html_document:
     toc: true
@@ -900,7 +900,7 @@ text(x = rep(7, 4),
 This plot does not really have any uncertainty... With ordered logit models, presentation of all predicted probabilities with uncertainties is possible, but the plot may look quite dense:
 
 ```{r simulation-setup}
-set.seed(20230420)
+set.seed(20260415)
 
 nsim <- 1000
 S <- mvrnorm(nsim, res$par, solve(-res$hessian))
