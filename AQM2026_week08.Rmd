@@ -732,7 +732,41 @@ It's your turn again. Change the code from the ordered logit so that you have an
 # start by copying the log likelihood function for the ordered logit model.
 # name your new function ll_oprobit
 
-ll_oprobit <- ??
+ll_oprobit <- function(theta, Z, X) {
+  k <- ncol(X)
+  J <- ncol(Z)
+  
+  # Subset theta
+  beta <- theta[1:k]
+  
+  tau <- theta[(k + 1):(k + J - 1)]
+  
+  # Linear Predictor
+  U <- X %*% beta
+  
+  # Probabilities in a matrix
+  probs <- matrix(nrow = length(U), ncol = J)
+  
+  # Calculate Probabilities for the different tau values
+  
+  # The first category is different
+  probs[, 1] <- pnorm(tau[1] - U)
+    
+  
+  # Now the categories in between
+  for (j in 2:(J - 1)) {
+    probs[, j] <- pnorm(tau[j] - U) -
+      dnorm(tau[j - 1] - U)
+  }
+  
+  # And the last category is different again.
+  probs[, J] <- 1 - pnorm(tau[J - 1] - U)
+  
+  ll <- sum(log(probs[Z]))
+  
+  # sum over probabilities
+  return(ll)
+}
 
 # Check whether your function works:
 
